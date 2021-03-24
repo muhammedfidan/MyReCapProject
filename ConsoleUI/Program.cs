@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -12,37 +13,17 @@ namespace ConsoleUI
         
         static void Main(string[] args)
         {
-            InMemoryCarDal carDal = new InMemoryCarDal();
-            CarManager carManager = new CarManager(carDal);
+            
+            CarManager carManager = new CarManager(new EfCarDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            carManager.Add(new Car {ColorId = 1, BrandId = 2, Description="dizel", ModelYear ="2010", DailyPrice = 0 });
+            brandManager.Add(new Brand { BrandName = "F" });
 
-            BringAll();
-            Console.WriteLine(Environment.NewLine+"EKLEME YAPTIKKTAN SONRA");
-            carDal.Add(new Car { Id = 5, BrandId = 1, ColorId = 2, DailyPrice = 200, Description = "Modern", ModelYear = "2021" });
-            BringAll();
-            Console.WriteLine(Environment.NewLine+ "ID ye gore getir" );
-            BringAllFromId();
-            Console.WriteLine(Environment.NewLine+"Silme YAPTIKKTAN SONRA");
-            carDal.Delete(new Car { Id = 1});
-            BringAll();
-            Console.WriteLine(Environment.NewLine + "Güncelleme YAPTIKKTAN SONRA");
-            carDal.Update(new Car { Id = 3, BrandId = 4, ColorId = 9, DailyPrice = 350, Description = "Son Model, Benzinli", ModelYear = "2022" });
-            BringAll();
-
-            void BringAll()
+            foreach (var car in carManager.GetAll())
             {
-                foreach (var car in carManager.GetAll())
-                {
-                    Console.WriteLine(car.Id + " " + car.DailyPrice + " " + car.Description + " " + car.ModelYear);
-                }
+                Console.WriteLine(car.Id + " " + car.ModelYear);
             }
 
-            void BringAllFromId()
-            {
-                foreach (var car in carDal.GetById(3))
-                {
-                    Console.WriteLine(car.Id + " " + car.DailyPrice + " " + car.Description + " " + car.ModelYear);
-                }
-            }
 
             
         }
