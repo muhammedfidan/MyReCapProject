@@ -34,10 +34,7 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetByCarName(int minChar, int dailyPrice)
-        {
-            return _carDal.GetAll(p=> p.Description.Length >= minChar && p.DailyPrice >= dailyPrice);
-        }
+        
 
         
 
