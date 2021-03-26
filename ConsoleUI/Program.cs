@@ -13,6 +13,12 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
+            //UserTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            rentalManager.Insert(new Rental {CarId = 1, CustomerId = 1, RentDate = (new DateTime(2021,3,27,22,20,00)) });
+
+
             //CarTest();
 
             //BrandTest();
@@ -21,29 +27,41 @@ namespace ConsoleUI
 
             //GetByIdTests();
 
-            GetProductDetailsTest();
+            //GetCarDetailsTest();
+            //GetByIdTests();
 
         }
 
-        private static void GetProductDetailsTest()
+        private static void UserTest()
         {
-            foreach (var car in new CarManager(new EfCarDal()).GetCarDetails())
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Insert((new User { Email = "engin@engin.com", FirstName = "Engin", LastName = "Demiroğ", Password = "12345" }));
+        }
+
+        private static void GetCarDetailsTest()
+        {
+
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetails();
+            foreach (var car in result.Data)
             {
-                Console.WriteLine(car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+                Console.WriteLine(car.CarName + " "+ car.ColorName);
             }
         }
 
         private static void GetByIdTests()
         {
-            Console.WriteLine(new ColorManager(new EfColorDal()).GetById(3).ColorName);
-            Console.WriteLine(new CarManager(new EfCarDal()).GetById(1007).DailyPrice);
-            Console.WriteLine(new BrandManager(new EfBrandDal()).GetById(1005).BrandName);
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var car in carManager.GetAllById(2).Data)
+            {
+                Console.WriteLine(car.CarName + " " + car.ColorId);
+            }
         }
 
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Insert(new Color {ColorName = "Dark Black" });
+            colorManager.Insert(new Color { ColorName = "Dark Black" });
             Console.WriteLine("Yeni renk eklendi." + Environment.NewLine);
             colorManager.Delete(new Color { ColorId = 2 });
             Console.WriteLine("2 Id numarali renk kayitlardan silindi." + Environment.NewLine);
@@ -53,7 +71,7 @@ namespace ConsoleUI
             void list()
             {
                 Console.WriteLine("Renkler listeleniyor.." + Environment.NewLine);
-                foreach (var color in colorManager.GetAll())
+                foreach (var color in colorManager.GetAll().Data)
                 {
                     Console.WriteLine(color.ColorId + " " + color.ColorName);
                 }
@@ -73,7 +91,7 @@ namespace ConsoleUI
             void list()
             {
                 Console.WriteLine("Markalar listeleniyor.." + Environment.NewLine);
-                foreach (var brand in brandManager.GetAll())
+                foreach (var brand in brandManager.GetAll().Data)
                 {
                     Console.WriteLine(brand.BrandId + " " + brand.BrandName);
                 }
@@ -85,7 +103,7 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             carManager.Insert(new Car { BrandId = 7, ColorId = 3, DailyPrice = 100, Description = "Benzinli", ModelYear = "2015" });
             Console.WriteLine("Yeni araba eklendi." + Environment.NewLine);
-            carManager.Delete(new Car { Id = 2009});
+            carManager.Delete(new Car { Id = 2009 });
             Console.WriteLine("1 ID Numarali Araba bilgileri kayitlardan silindi." + Environment.NewLine);
             carManager.Update(new Car { Id = 1007, BrandId = 3, ColorId = 2, DailyPrice = 180, Description = "Dizel", ModelYear = "2018" });
             Console.WriteLine("1007 ID numarali araba bilgileri guncellendi." + Environment.NewLine);
@@ -94,15 +112,15 @@ namespace ConsoleUI
             void list()
             {
                 Console.WriteLine("Arabalar listeleniyor.." + Environment.NewLine);
-                foreach (var car in carManager.GetAll())
+                foreach (var car in carManager.GetAll().Data)
                 {
-                    Console.WriteLine(car.Id + " "+ car.DailyPrice + " " + car.Description);
+                    Console.WriteLine(car.Id + " " + car.DailyPrice + " " + car.Description);
                 }
             }
         }
 
     }
 
-    
+
 
 }

@@ -33,15 +33,6 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity GetById(object EntityId)
-        {
-            using (TContext context = new TContext())
-            {
-                return context.Set<TEntity>().Find(EntityId);
-            }
-        }
-
-        
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {

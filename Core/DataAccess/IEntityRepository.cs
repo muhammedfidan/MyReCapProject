@@ -14,7 +14,8 @@ namespace Core.DataAccess
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
-        T GetById(object EntityId);
+        
+        
         
 
     }
