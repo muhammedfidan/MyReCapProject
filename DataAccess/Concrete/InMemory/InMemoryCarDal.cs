@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace DataAccess.Concrete.InMemory
             };
         }
 
-        public void Add(Car car)
+        public void Insert(Car car)
         {
             _cars.Add(car);
         }
@@ -57,6 +58,11 @@ namespace DataAccess.Concrete.InMemory
 
         }
 
+        public Car GetById(object EntityId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             Car carToUpdate = _cars.SingleOrDefault(p => p.Id == car.Id);
@@ -66,5 +72,7 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;
         }
+
+       
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Concrete
 {
-    public class CarManager:ICarService
+    public class CarManager : ICarService
     {
         ICarDal _carDal;
 
@@ -16,17 +17,14 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public void Delete(Car car)
         {
-            if (car.DailyPrice <= 0)
-            {
-                Console.WriteLine("Araba günlük fiyatı 0'dan büyük olmalıdır.");
-            }
-            
-            else
-            {
-                _carDal.Add(car);
-            }
+            _carDal.Delete(car);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
         }
 
         public List<Car> GetAll()
@@ -34,10 +32,27 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        
+        public Car GetById(int carId)
+        {
+            return _carDal.GetById(carId);
+        }
 
-        
+        public void Insert(Car car)
+        {
+            if (car.DailyPrice <= 0)
+            {
+                Console.WriteLine("Araba günlük fiyatı 0'dan büyük olmalıdır.");
+            }
 
-       
+            else
+            {
+                _carDal.Insert(car);
+            }
+        }
+
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
+        }
     }
 }

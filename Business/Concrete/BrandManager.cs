@@ -16,21 +16,37 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+
+        public void Delete(Brand brand)
         {
-            if(brand.BrandName.Length < 2)
+            _brandDal.Delete(brand);
+        }
+
+        public List<Brand> GetAll()
+        {
+            return _brandDal.GetAll();
+        }
+
+        public Brand GetById(int brandId)
+        {
+            return _brandDal.GetById(brandId);
+        }
+
+        public void Insert(Brand brand)
+        {
+            if (brand.BrandName.Length < 2)
             {
                 Console.WriteLine("Araba ismi minimum 2 karakter olmalıdır");
             }
             else
             {
-                _brandDal.Add(brand);
+                _brandDal.Insert(brand);
             }
         }
 
-        public List<Brand> GetCarsByBrandId(int brandId)
+        public void Update(Brand brand)
         {
-            return _brandDal.GetAll(p => p.BrandId == brandId);
+            _brandDal.Update(brand);
         }
     }
 }
