@@ -4,6 +4,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
@@ -20,6 +21,17 @@ namespace Business.Concrete
         {
             _customerDal.Delete(customer);
             return new SuccessResult(Messages.Deleted);
+        }
+
+        public IDataResult<List<Customer>> GetAll()
+        {
+            
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
+        }
+
+        public IDataResult<List<Customer>> GetAllById(int id)
+        {
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(p=>p.Id==id));
         }
 
         public IResult Insert(Customer customer)

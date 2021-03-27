@@ -24,6 +24,16 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Deleted);
         }
 
+        public IDataResult<List<User>> GetAll()
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+        }
+
+        public IDataResult<List<User>> GetAllById(int id)
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(p=>p.Id==id));
+        }
+
         public IResult Insert(User user)
         {
             _userDal.Insert(user);
