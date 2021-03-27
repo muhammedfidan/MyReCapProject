@@ -15,8 +15,7 @@ namespace ConsoleUI
         {
             //UserTest();
 
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            rentalManager.Insert(new Rental {CarId = 1, CustomerId = 1, RentDate = (new DateTime(2021,3,27,22,20,00)) });
+            //RentalTest();
 
 
             //CarTest();
@@ -30,6 +29,29 @@ namespace ConsoleUI
             //GetCarDetailsTest();
             //GetByIdTests();
 
+            CustomerTest();
+
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Insert(new Customer { CompanyName = "MFSoftware" });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Insert(new Rental { CarId = 1, CustomerId = 1, RentDate = (new DateTime(2021, 3, 27, 22, 20, 00)) }) ;
+            if(result.Success)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void UserTest()

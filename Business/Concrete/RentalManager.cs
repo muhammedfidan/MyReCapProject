@@ -24,19 +24,17 @@ namespace Business.Concrete
 
         public IResult Insert(Rental rental)
         {
-            if (rental.ReturnDate != null)
+            
+            if (rental.ReturnDate==null)
             {
-                _rentalDal.Insert(rental);
-                
-                
-                
-            }
-            else
-            {
-                Console.WriteLine(Messages.CarNotAvailable);
+
+                return new ErrorResult(Messages.CarNotAvailable);
+
             }
             
+            _rentalDal.Insert(rental);
             return new SuccessResult(Messages.Added);
+            
         }
 
         public IResult Update(Rental rental)
