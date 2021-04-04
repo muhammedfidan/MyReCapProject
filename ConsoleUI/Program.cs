@@ -54,11 +54,7 @@ namespace ConsoleUI
             }
         }
 
-        private static void UserTest()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Insert((new User { Email = "engin@engin.com", FirstName = "Engin", LastName = "Demiroğ", Password = "12345" }));
-        }
+        
 
         private static void GetCarDetailsTest()
         {

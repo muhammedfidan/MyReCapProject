@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -26,7 +27,7 @@ namespace Business.Concrete
         }
 
 
-
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         
         public IResult Add(IFormFile file, CarImage carImage)

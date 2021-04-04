@@ -58,5 +58,7 @@ namespace Business.Constants
         public static string Added = "Eklendi";
         public static string Updated =  "Guncellendi";
         public static string Deleted = "silindi";
+
+       
     }
 }
